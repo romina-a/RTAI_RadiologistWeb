@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Radiologist Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<!--FIX menu links-->
+<div class="w3-top">
+    <div class="w3-row w3-padding w3-black">
+    <!--    <div class="w3-col s3">-->
+    <!--      <a href="templates/index.html" class="w3-button w3-block w3-black">HOME</a>-->
+    <!--    </div>-->
+    <!--    <div class="w3-col s2">-->
+    <!--      <a href="templates/index.html#about" class="w3-button w3-block w3-black">ABOUT</a>-->
+    <!--    </div>-->
+    <!--    <div class="w3-col s2">-->
+    <!--      <a href="templates/index.html#tool" class="w3-button w3-block w3-black">TOOL</a>-->
+    <!--    </div>-->
+    <div class="w3-col s2">
+        <a href="#slider" class="w3-button w3-block w3-black">ANNOTATOR</a>
+    </div>
+    <!--    <div class="w3-col s2">-->
+    <!--      <a href="templates/index.html#where" class="w3-button w3-block w3-black">CONTACT</a>-->
+    <!--    </div>-->
+    </div>
+</div>
+
+<div class="w3-container" id="slider">
+    <div class="w3-content" style="max-width:700px;">
+        <!-- code ref: https://github.com/skcals/javascript_image_slider -->
+        <div style="max-width:700px">
+            <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">X-RAY ANNOTATOR</span></h5>
+            <div class="img-box">
+                <!-- img src="images/10.png" class="slider-img" -->
+                <canvas id="canvas"style="border: 1px solid black;"></canvas>
+            </div>
+
+            <button class="btn" id="next">Prev</button>
+            <button class="btn" id="prev">Next</button>
+            <button class="btn" id="reset" >Reset</button> <!--TO DO: move to the right-->
+        </div>
+
+        <br />
+        <div style="max-width:700px;">
+            <h5>
+                Thanks for using our X-ray Annotator tool! Click 'Annotate' to mark the regions on the image with abnormalities. Click around the area to assign polygon vertices.
+                To draw a polygon in a different area in the image, click 'Done' to save the first polygon and click 'Annotate' to
+                start a new one.
+                <br /> <br />
+                Click 'Reset' to start over. When you are done annotating the image, click 'Save'.
+            </h5>
+            <button class="btn" id=drawpoly>Annotate</button>
+            <button class="btn" id=done>Done</button>
+            <button class="btn" id=save>Save</button>
+            <div id="img" style="display:none;">
+                <img src="" id="newimg" class="top" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+  <h5 class="w3-center w3-padding w3-black"><span class="rtai">RTAI</span></h5>
+</footer>
+
+
+<script src="static/js/index.js"></script>
+
+</body>
+</html>
