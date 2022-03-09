@@ -81,6 +81,23 @@ function drawLine(){
     context.stroke();
 }
 
+function reset(){
+    all_polygons = [];
+    coordinates = [];
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawImg();
+}
+
+function undo(){
+    console.log("undo");
+    console.log(all_polygons);
+    all_polygons.pop();
+    reset();
+    drawAnnotations();
+    console.log("after");
+    console.log(all_polygons);
+}
+
 function dataSave(imgName, outputData){
     // outputStr = JSON.stringify(outputData);
     dataToSend = {'imageName': imgName,
@@ -109,11 +126,18 @@ $("#next").click(function (){
 });
 
 $("#reset").click(function (){
-    all_polygons = [];
-    coordinates = [];
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawImg();
+    reset();
 });
+
+$("#undo").click(function (){
+    if (isDone===false){
+        alert("please finish drawing the current polygon before undo");
+        return;
+    }
+    console.log("undoing");
+    undo();
+});
+
 
 $('#save').click(function(){
     if (isDone===false){
