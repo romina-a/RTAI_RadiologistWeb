@@ -32,6 +32,7 @@
     </div>
 </div>
 
+{% if session.get("user_id") %}
 <div class="w3-container" id="slider">
     <div class="w3-content" style="max-width:700px;">
         <!-- code ref: https://github.com/skcals/javascript_image_slider -->
@@ -66,6 +67,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <footer>
   <h5 class="w3-center w3-padding w3-black"><span class="rtai">RTAI</span></h5>
