@@ -15,19 +15,19 @@
 <div class="w3-top">
     <div class="w3-row w3-padding w3-black">
     <!--    <div class="w3-col s3">-->
-    <!--      <a href="templates/index.html" class="w3-button w3-block w3-black">HOME</a>-->
+    <!--      <a href="templates/annotation.html" class="w3-button w3-block w3-black">HOME</a>-->
     <!--    </div>-->
     <!--    <div class="w3-col s2">-->
-    <!--      <a href="templates/index.html#about" class="w3-button w3-block w3-black">ABOUT</a>-->
+    <!--      <a href="templates/annotation.html#about" class="w3-button w3-block w3-black">ABOUT</a>-->
     <!--    </div>-->
     <!--    <div class="w3-col s2">-->
-    <!--      <a href="templates/index.html#tool" class="w3-button w3-block w3-black">TOOL</a>-->
+    <!--      <a href="templates/annotation.html#tool" class="w3-button w3-block w3-black">TOOL</a>-->
     <!--    </div>-->
     <div class="w3-col s2">
         <a href="#slider" class="w3-button w3-block w3-black">ANNOTATOR</a>
     </div>
     <!--    <div class="w3-col s2">-->
-    <!--      <a href="templates/index.html#where" class="w3-button w3-block w3-black">CONTACT</a>-->
+    <!--      <a href="templates/annotation.html#where" class="w3-button w3-block w3-black">CONTACT</a>-->
     <!--    </div>-->
     </div>
 </div>
@@ -47,8 +47,13 @@
             <button class="btn" id="prev">Next</button>
             <button class="btn" id="undo" >Undo</button>
             <button class="btn" id="reset" >Reset</button> <!--TO DO: move to the right-->
+            <br>
+
         </div>
 
+            <button class="btn" id="drawpoly">Annotate</button>
+            <button class="btn" id="done">Done</button>
+            <button class="btn" id="save">Save</button>
         <br />
         <div style="max-width:700px;">
             <h5>
@@ -58,12 +63,6 @@
                 <br /> <br />
                 Click 'Reset' to start over. When you are done annotating the image, click 'Save'.
             </h5>
-            <button class="btn" id=drawpoly>Annotate</button>
-            <button class="btn" id=done>Done</button>
-            <button class="btn" id=save>Save</button>
-            <div id="img" style="display:none;">
-                <img src="" id="newimg" class="top" />
-            </div>
         </div>
     </div>
 </div>
@@ -81,24 +80,16 @@
 
             <button class="btn" id="next">Prev</button>
             <button class="btn" id="prev">Next</button>
-            <button class="btn" id="undo" >Undo</button>
-            <button class="btn" id="reset" >Reset</button> <!--TO DO: move to the right-->
         </div>
 
         <br />
         <div style="max-width:700px;">
             <h5>
-                Thanks for using our X-ray Annotator tool! Click 'Annotate' to mark the regions on the image with abnormalities. Click around the area to assign polygon vertices.
-                To draw a polygon in a different area in the image, click 'Done' to save the first polygon and click 'Annotate' to
-                start a new one.
+                Only registered radiologists can annotate images.
+                <br>
+                If you are a registered radiologist, please <button class="btn" id="login" type="submit" onclick="">log in</button> to view and edit your annotations.
                 <br /> <br />
-                Click 'Reset' to start over. When you are done annotating the image, click 'Save'.
             </h5>
-            <button class="btn" id=drawpoly>Annotate</button>
-            <button class="btn" id=done>Done</button>
-            <div id="img" style="display:none;">
-                <img src="" id="newimg" class="top" />
-            </div>
         </div>
     </div>
 </div>

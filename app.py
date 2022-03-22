@@ -22,7 +22,7 @@ def custom_401(error):
 @app.route('/', methods=['GET', 'POST'])
 def radiologist_page():
     if request.method == 'GET':
-        return render_template("index.html")
+        return render_template("annotation.html")
     if request.method == 'POST':
         if session.get('user_id') is None:
             abort(401)
