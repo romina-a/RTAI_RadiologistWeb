@@ -24,6 +24,7 @@ def create_data_file():
         file = open(FILE_PATH, 'a+')
         writer = csv.writer(file)
         writer.writerow(HEADER)
+        writer.writerow(["admin", "password", "radio", "logist", "radiologist@radiologists.ca"])
         file.close()
     # TODO check header exists and if not add header to the file
 
@@ -31,7 +32,7 @@ def create_data_file():
 def _add_row(user_id, password, name, surname, email):
     inp = open(FILE_PATH, 'a+')
     writer = csv.writer(inp)
-    writer.writerow([user_id, password, name, surname])
+    writer.writerow([user_id, password, name, surname, email])
     inp.close()
 
 

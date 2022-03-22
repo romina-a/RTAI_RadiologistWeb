@@ -1,7 +1,7 @@
 import json
 import os
 
-import annotation_handler
+from annotation_handler import AnnotationHandler
 import user_handler as uh
 
 from flask import Flask, request, render_template, session, flash, redirect, url_for, Response, abort
@@ -22,24 +22,28 @@ def radiologist_page():
     if request.method == 'GET':
         return render_template("index.html")
     if request.method == 'POST':
-        if session['an'] is None:
+        if session.get('user_id') is None:
             abort(401)
         im = request.json['imageName']
         vertices = request.json['coordinates']
 
-        session['an'].update_row(im, json.dumps(vertices))
+        AnnotationHandler(session.get('user_id')).update_row(im, json.dumps(vertices))
         return ''
 
 
 @app.route('/annotations', methods=['POST'])
 def get_annotations():
-    if session.get('an') is None:
+    if session.get('user_id') is None:
         vertices = "[]"
     else:
         im = request.json['imageName']
-        vertices = session.get('an').get_row(im)['annotations']
-        if vertices is None:
+        print("get_annotations")
+        print(session.get('user_id'))
+        row = AnnotationHandler(session.get('user_id')).get_row(im)
+        if row is None:
             vertices = "[]"
+        else:
+            vertices = row['annotations']
     return json.dumps(json.loads(vertices))
 
 
@@ -57,7 +61,7 @@ def login():
             error = "Already logged in"
 
         user = uh.get_row(user_id)
-
+        print("user is:", user)
         if user is None:
             error = "Incorrect username."
         elif not user["password"] == password:
@@ -69,7 +73,6 @@ def login():
             session.clear()
             user_id = user['user_id']
             session['user_id'] = user_id
-            session['an'] = annotation_handler.AnnotationHandler(user_id)
             return redirect(url_for("radiologist_page"))
             # return redirect(request.url) TODO try this
 
