@@ -68,6 +68,41 @@
     </div>
 </div>
 {% endif %}
+{% if not session.get("user_id") %}
+<div class="w3-container" id="slider">
+    <div class="w3-content" style="max-width:700px;">
+        <!-- code ref: https://github.com/skcals/javascript_image_slider -->
+        <div style="max-width:700px">
+            <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">X-RAY ANNOTATOR</span></h5>
+            <div class="img-box">
+                <!-- img src="images/10.png" class="slider-img" -->
+                <canvas id="canvas"style="border: 1px solid black;"></canvas>
+            </div>
+
+            <button class="btn" id="next">Prev</button>
+            <button class="btn" id="prev">Next</button>
+            <button class="btn" id="undo" >Undo</button>
+            <button class="btn" id="reset" >Reset</button> <!--TO DO: move to the right-->
+        </div>
+
+        <br />
+        <div style="max-width:700px;">
+            <h5>
+                Thanks for using our X-ray Annotator tool! Click 'Annotate' to mark the regions on the image with abnormalities. Click around the area to assign polygon vertices.
+                To draw a polygon in a different area in the image, click 'Done' to save the first polygon and click 'Annotate' to
+                start a new one.
+                <br /> <br />
+                Click 'Reset' to start over. When you are done annotating the image, click 'Save'.
+            </h5>
+            <button class="btn" id=drawpoly>Annotate</button>
+            <button class="btn" id=done>Done</button>
+            <div id="img" style="display:none;">
+                <img src="" id="newimg" class="top" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <footer>
   <h5 class="w3-center w3-padding w3-black"><span class="rtai">RTAI</span></h5>
