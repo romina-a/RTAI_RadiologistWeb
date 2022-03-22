@@ -1,6 +1,7 @@
 import csv
 import os
 import shutil
+from werkzeug.security import generate_password_hash
 
 # -- -- -- DATA FILE INFO
 DATA_FOLDER = "./data"
@@ -24,7 +25,11 @@ def create_data_file():
         file = open(FILE_PATH, 'a+')
         writer = csv.writer(file)
         writer.writerow(HEADER)
-        writer.writerow(["admin", "password", "radio", "logist", "radiologist@radiologists.ca"])
+        writer.writerow(["radiologist1", generate_password_hash("password"),
+                         "radio1", "logist", "radiologist1@radiologists.ca"])
+        writer.writerow(["radiologist2", generate_password_hash("password"),
+                         "radio2", "logist", "radiologist2@radiologists.ca"])
+
         file.close()
     # TODO check header exists and if not add header to the file
 

@@ -2,6 +2,8 @@ import json
 import os
 
 from annotation_handler import AnnotationHandler
+from werkzeug.security import check_password_hash
+
 import user_handler as uh
 
 from flask import Flask, request, render_template, session, flash, redirect, url_for, Response, abort
@@ -64,7 +66,7 @@ def login():
         print("user is:", user)
         if user is None:
             error = "Incorrect username."
-        elif not user["password"] == password:
+        elif not check_password_hash(user["password"], password):
             error = "Incorrect password."
 
         if error is None:
