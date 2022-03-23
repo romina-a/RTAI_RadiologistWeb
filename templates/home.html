@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<title>Homepage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("static/img/ruan-richard-sT1sEvYUjwU-unsplash2.jpg");
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+<body>
+
+<!-- Links (sit on top) -->
+<div class="w3-top">
+  <div class="w3-row w3-padding w3-black">
+    <div class="w3-col s3">
+      <a href="#" class="w3-button w3-block w3-black">HOME</a>
+    </div>
+    <div class="w3-col s2">
+      <a href="#about" class="w3-button w3-block w3-black">ABOUT</a>
+    </div>
+    <div class="w3-col s2">
+      <a href="#tool" class="w3-button w3-block w3-black">TOOL</a>
+    </div>
+    <div class="w3-col s2">
+      <a href="{{ url }}#slider" class="w3-button w3-block w3-black">ANNOTATOR</a>
+    </div>
+    <div class="w3-col s2">
+      <a href="{{ url }}#login" class="w3-button w3-block w3-black">LOGIN</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Header with image -->
+<!-- Photo by Ruan Richard on Unsplash, edited -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+    <span class="w3-tag">RTAI</span>
+  </div>
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:50px">COVID-19 Triage Tool</span>
+  </div>
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-sand w3-grayscale w3-large">
+
+<!-- About Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px; text-align:center">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT RTAI</span></h5>
+    <p>This website showcases our project for the
+      <a href="https://r7.ieee.org/montreal-sight/ai-against-covid-19/">AI against COVID-19 Competition</a>, organized by IEEE SIGHT Montreal, Vision and Image
+      Processing Research Group of the University of Waterloo, and DarwinAI Corp., and sponsored by Microsoft.
+      We have implemented a neural network to screen chest X-rays for COVID-19; you can try out our <a href="#tool"> Screening Tool</a> below. As part of our project, we are exploring ways to make
+      our model explainable to ensure the neural network considers correct features when making predictions. For our research in explainability,
+      we have created a chest X-ray annotation tool for radiologists to annotate anomalies on a set of chest X-rays. We will compare our model's
+      predictions with the radiologists' to evaluate our neural network.
+      <br />
+      <br />
+      For details on how to tool works, checkout out our <a href="https://github.com/tasn19/RTAI">github page</a>. The tools developed in this project are intended for research purposes.</p>
+
+
+</div>
+
+<!-- Screening Tool Container -->
+<div class="w3-container" id="tool">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">SCREENING TOOL</span></h5>
+    <form id="upload-file" class="form-signin w3-center" method=post enctype=multipart/form-data>
+      <p>Upload your image and click predict.</p>
+      <input type="file" name="file" class="form-control-file" id="file" onchange="preview_image(event)">
+      <button id="predict" class="btn btn-lg bddtn-primary btn-block " >Predict</button>
+<!--    <input type="submit" name="next" value="Next" onclick="upload_file();">-->
+      <br/> <br/>
+        <img id="output-image" class="rounded mx-auto d-block"/>
+
+	</form>
+
+<div class="w3-container" id="result" style="visibility:hidden" >
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">SCREENING RESULT</span></h5>
+    <div id="result_show">
+<!--    <p>The result of the AI chest X-ray screening is {{ detection }} with {{ prediction }} % confidence.</p>-->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+		function preview_image(event) {
+			var reader = new FileReader();
+			reader.onload = function(){
+				var output = document.getElementById('output-image')
+              if(output && output.style) {
+                  output.style.height = '400px';
+                  output.style.width = 'auto';
+            }
+				output.src = reader.result;
+			}
+			reader.readAsDataURL(event.target.files[0]);
+		}
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+
+  $('#upload-file').submit(function ( e ) {
+    console.log("prevent default is happening")
+    e.preventDefault();
+  });
+
+    $('#predict').click(function() {
+        var form_data = new FormData($('#upload-file')[0]);
+        console.log("clicked");
+        console.log(form_data);
+        $.ajax({
+            type: 'POST',
+            url: '/prediction',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+
+                document.getElementById("result").style.visibility= "visible" ;
+                var div = document.getElementById('result_show');
+
+                div.innerHTML += "<p>The result of the AI chest X-ray screening is"+ data</p>";
+
+            },
+        }).fail(function(data){
+          console.log("failed");
+          console.log(data);
+        });
+    });
+// });
+  </script>
+
+
+
+<!-- Footer -->
+<footer>
+  <h5 class="w3-center w3-padding w3-black w3-padding-15 w3-large"><span class="rtai">RTAI</span></h5>
+</footer>
+
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+
+</script>
+
+</body>
+</html>
